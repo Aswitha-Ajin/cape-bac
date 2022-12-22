@@ -11,7 +11,9 @@ mongo.connect();
 const app = express();
 // to parse req.body, to send the req.body from client to server
 app.use(express.json());
-app.use(cors())
+app.use(cors({
+  origin: "https://zingy-biscotti-fcd882.netlify.app/",
+}))
 app.use("/", (req, res, next) => {
   // Authentication
   var auth = {
