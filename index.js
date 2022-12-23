@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const registerRouter = require('./router/registerRouter');
-import { readdirSync } from "fs";
+const fs = require('fs');
 //const auth = require("./modules/authModule");
 const mongo = require("./connect");
 
@@ -34,7 +34,7 @@ app.use(cors({
 
 //app.use("/", auth.authenticateUser);
 //app.use("/register", registerRouter);
-readdirSync('./router').map((r) => app.use("/api", require(`./router/${r}`)));
+fs.readdirSync('./router').map((r) => app.use("/api", require(`./router/${r}`)));
 
 //app.listen(process.env.PORT);
 app.listen(process.env.PORT,()=>console.log('connected to server',process.env.PORT))
