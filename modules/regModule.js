@@ -32,8 +32,9 @@ const checkPassword = async (password, confirmpassword) => {
 
 exports.signin = async (req,res,next) => {
 try{// Validate Email
+    console.log("DataBody---->",req.body.email,req.body);
     const existUser = await mongo.selectedDb.collection('users').findOne({email : req.body.email})
-    console.log(existUser);
+    console.log("data----->",existUser);
     if(!existUser) return res.status(500).send({msg: "You are not a registered user"})
 
     // Password Validation
