@@ -33,6 +33,7 @@ const checkPassword = async (password, confirmpassword) => {
 exports.signin = async (req,res,next) => {
 try{// Validate Email
     const existUser = await mongo.selectedDb.collection('users').findOne({email : req.body.email})
+    console.log(existUser);
     if(!existUser) return res.status(500).send({msg: "You are not a registered user"})
 
     // Password Validation
@@ -40,10 +41,14 @@ try{// Validate Email
     if(!isValid) return res.status(500).send({msg : "Password didn't match"})
 
     // Generate and send the token
-    const token = jwt.sign(existUser, process.env.SECRET_KEY, {expiresIn : '10m'});
+    //const token = jwt.sign(existUser, process.env.SECRET_KEY, {expiresIn : '10m'});
+    const token = jwt.sign({_id: existUser.id},process.env.SECRET_KEY,{
+        expiresIn: "7d", //20sec for test
+      });
     res.send(token);
 }catch(err){
     console.log(err);
+    res.status(500).send(err)
 }
     
 }
