@@ -31,8 +31,7 @@ const checkPassword = async (password, confirmpassword) => {
 }
 
 exports.signin = async (req,res,next) => {
-
-    // Validate Email
+try{// Validate Email
     const existUser = await mongo.selectedDb.collection('users').findOne({email : req.body.email})
     if(!existUser) return res.status(500).send({msg: "You are not a registered user"})
 
@@ -43,4 +42,8 @@ exports.signin = async (req,res,next) => {
     // Generate and send the token
     const token = jwt.sign(existUser, process.env.SECRET_KEY, {expiresIn : '10m'});
     res.send(token);
+}catch(err){
+    console.log(err);
+}
+    
 }

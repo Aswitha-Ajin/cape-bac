@@ -17,11 +17,3 @@ exports.authenticateUser = (req, res, next) => {
   }
 };
 
-// Authorisation
-exports.authorizeUser = (req, res, next) => {
-  if (req.body.currentuser.role === "admin") next();
-  else
-    return res
-      .status(404)
-      .send({ msg: "Forbidden : No permission to access API" });
-};
