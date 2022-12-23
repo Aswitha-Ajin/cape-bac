@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());
 
 app.use(cors({
-  origin: "https://zingy-biscotti-fcd882.netlify.app/",
+  origin: "https://zingy-biscotti-fcd882.netlify.app"
 }))
 // app.use(cors({
 //   origin: "http://localhost:3000/",
